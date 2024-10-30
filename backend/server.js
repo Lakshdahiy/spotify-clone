@@ -2,6 +2,9 @@ const express =require('express');
 const mongoose=require('mongoose');
 const  dotenv =require("dotenv");
 const cors=require('cors');
+const userRoutes = require('./routes/userRoutes');
+const playlistRoutes = require('./routes/playlistRoutes')
+
 
 dotenv.config();
 
@@ -27,10 +30,13 @@ mongoose.connect('mongodb+srv://lakshdahiya2005:9896096559@cluster0.a5ayaeu.mong
 )
 
 
-const userRoutes = require('./routes/userRoutes');
+
 //use the routes
 
 app.use('/api/users',userRoutes);
+app.use('/api/playlist',playlistRoutes);
+
+
 
 
 
