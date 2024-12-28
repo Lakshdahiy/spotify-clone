@@ -4,9 +4,19 @@ const  dotenv =require("dotenv");
 const cors=require('cors');
 const userRoutes = require('./routes/userRoutes');
 const playlistRoutes = require('./routes/playlistRoutes')
+const songRoutes = require('./routes/songRoutes');
+const cookieParser = require ('cookie-parser')
+const cloudinary = require('cloudinary');
+
 
 
 dotenv.config();
+
+cloudinary.v2.config({
+    cloud_name: process.env.Cloud_Name,
+    api_key:process.env.cloud_Api,
+    api_secret:process.env.Cloud_Secret
+})
 
 const app = express();
 
@@ -15,6 +25,8 @@ const PORT= process.env.PORT || 5000;
 app.use(cors());
 
 app.use(express.json());
+
+app.use(cookieParser())
 
 
 app.get('/',(req,res)=>{
@@ -33,8 +45,9 @@ mongoose.connect('mongodb+srv://lakshdahiya2005:9896096559@cluster0.a5ayaeu.mong
 
 //use the routes
 
-app.use('/api/users',userRoutes);
+app.use('/api/user+',userRoutes);
 app.use('/api/playlist',playlistRoutes);
+app.use('/api/song',songRoutes);
 
 
 

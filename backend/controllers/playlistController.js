@@ -9,8 +9,7 @@ const createPlaylist = async (req, res) => {
     const { name, userId } = req.body;
      const user =await User.findById(userId);
      if(!user){
-      return
-      res.status(400).json({message:'User not found'})
+      return  res.status(400).json({message:'User not found'})
      }
 
     // Create a new playlist
@@ -58,5 +57,41 @@ const addSongToPlaylist = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+// View Playlist with songs
+const viewPlaylist = async (req, res) => {
+  try {
+    const { playlistId } = req.params;
 
-module.exports = { createPlaylist, addSongToPlaylist };
+    const playlist = await Playlist.findById(playlistId).populate('songs');
+
+    if (!playlist) {
+      return res.status(404).json({ message: 'Playlist not found' });
+    }
+
+    res.status(200).json({ playlist });
+  } catch (error) {
+    console.error("Error in viewPlaylist:", error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+// Update Playlist Name
+const updatePlaylistName = async (req, res) => {
+  try {
+    const { playlistId } = req.params;
+    const { name } = req.body;
+
+    const playlist = await Playlist.findByIdAndUpdate(playlistId, { name }, { new: true });
+
+    if (!playlist) {
+      return res.status(404).json({ message: 'Playlist not found' });
+    }
+
+    res.status(200).json({ message: 'Playlist name updated successfully', playlist });
+  } catch (error) {
+    console.error("Error in updatePlaylistName:", error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+
+module.exports = { createPlaylist, addSongToPlaylist, viewPlaylist,updatePlaylistName};

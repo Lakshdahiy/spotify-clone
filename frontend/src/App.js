@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import Login from './pages/Login.jsx';
+import Home from './pages/home.jsx';
+import {BrowserRouter,Routes,Route} from 'react-router-dom';
+import Register from './pages/Register.jsx';
+import './index.css';
+import { UserData } from './context/User.jsx';
+import Loading from './components/Loading.jsx';
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const{loading ,user,isAuth} = UserData
+  return <>
+  {loading?(
+    <Loading />
+  ):(
+    <BrowserRouter>
+<Routes>
+  <Route path='/' element={<Home/>}/>
+  <Route path='/login' element={isAuth?<Home/>:<Login/>}/>
+  <Route path='/register' element={isAuth?<Home/>:<Register/>}/>
+</Routes>
+</BrowserRouter>
+  )}
+
+
+  </>
 }
 
 export default App;

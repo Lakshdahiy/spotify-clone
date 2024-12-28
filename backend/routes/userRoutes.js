@@ -1,5 +1,7 @@
 const express = require('express');
-const {createUser, loginUser} = require('../controllers/userController');
+const {createUser, loginUser, myProfile, logoutUser} = require('../controllers/userController');
+const isAuth = require('../middleware/authMiddleware');
+
 
 const router = express.Router();
 
@@ -7,6 +9,11 @@ const router = express.Router();
 
 router.post('/register',createUser);
 
-router.post('/login',loginUser)
+router.post('/login',loginUser);
+
+//router.get('/me',isAuth,myProfile)
+router.get('/me',isAuth,myProfile)
+router.get('/logout',isAuth,logoutUser)
 
 module.exports = router ;
+
