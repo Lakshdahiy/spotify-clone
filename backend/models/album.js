@@ -2,8 +2,7 @@ const mongoose = require('mongoose');
 
 const albumSchema = new mongoose.Schema({
     title:{
-        type:String,
-        required:true
+        type:String
     },
     description:{
         type:String,

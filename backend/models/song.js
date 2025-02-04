@@ -5,14 +5,28 @@ const songSchema = new mongoose.Schema({
         type: String,
         required :true,
     },
-    artist :{
+    description :{
         type: String,
         required :true,
     },
-    duration :{
+    singer :{
         type: String,
         required :true,
     },
+    thumbnail:{
+        id:String,
+        url:String,
+    },
+    audio:{
+        id:String,
+        url:String,
+    },
+    album:{
+        type:String,
+        required: true,
+    },
+},{
+    timestamps : true
 });
 
 const Song = mongoose.model('Song', songSchema);

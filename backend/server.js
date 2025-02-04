@@ -45,7 +45,7 @@ mongoose.connect('mongodb+srv://lakshdahiya2005:9896096559@cluster0.a5ayaeu.mong
 
 //use the routes
 
-app.use('/api/user+',userRoutes);
+app.use('/api/user',userRoutes);
 app.use('/api/playlist',playlistRoutes);
 app.use('/api/song',songRoutes);
 
